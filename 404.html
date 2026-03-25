@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" href="./res/logo.svg">
+    <title>404 — eleday</title>
+    <link rel="stylesheet" href="./res/style.css">
+    <script>
+        const s = localStorage.getItem('theme');
+        document.documentElement.dataset.theme = s ?? (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    </script>
+    <style>.hero h1 { font-size: 96px; }</style>
+</head>
+<body translate="no">
+    <button id="theme-btn" aria-label="Переключить тему">
+        <i data-lucide="sun" class="icon-light"></i>
+        <i data-lucide="moon" class="icon-dark"></i>
+    </button>
+    <main>
+        <div class="hero fade-in">
+            <h1>404</h1>
+            <p>страница не найдена</p>
+        </div>
+        <nav class="fade-in" style="--delay: .12s">
+            <h2>Вернуться</h2>
+            <div class="link-grid">
+                <a href="/" style="--c: rgb(231, 231, 231)">на главную<i data-lucide="external-link"></i></a>
+            </div>
+        </nav>
+    </main>
+    <p class="footer fade-in" style="--delay: .22s">@eleday</p>
+    <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+    <script src="./res/main.js"></script>
+</body>
+</html>

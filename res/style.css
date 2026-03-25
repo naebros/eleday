@@ -1,0 +1,187 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap');
+
+*, *::before, *::after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+:root, [data-theme="dark"] {
+    --bg: #050505;
+    --nav-bg: linear-gradient(145deg, #101010, #0a0a0a);
+    --nav-border: rgba(255,255,255,.08);
+    --nav-divider: rgba(255,255,255,.06);
+    --h1: #fff;
+    --h2: rgba(255,255,255,.85);
+    --desc: #9b9b9b;
+    --footer: #8c8c8c;
+    --link-color: rgba(255,255,255,.92);
+    --link-border: #1c1c1c;
+}
+
+[data-theme="light"] {
+    --bg: #f5f5f5;
+    --nav-bg: linear-gradient(145deg, #fff, #f9f9f9);
+    --nav-border: rgba(0,0,0,.08);
+    --nav-divider: rgba(0,0,0,.06);
+    --h1: #0a0a0a;
+    --h2: rgba(0,0,0,.7);
+    --desc: #666;
+    --footer: #999;
+    --link-color: rgba(0,0,0,.85);
+    --link-border: #e0e0e0;
+}
+
+body {
+    background: var(--bg);
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px;
+    font-family: 'Inter', sans-serif;
+    transition: background .25s ease;
+}
+
+a { text-decoration: none; color: inherit; }
+
+#theme-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid var(--nav-border);
+    background: var(--nav-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 100;
+    transition: opacity .15s ease, scale .15s ease;
+}
+
+#theme-btn svg { width: 16px; height: 16px; color: var(--h1); }
+#theme-btn:hover { opacity: .7; }
+#theme-btn:active { scale: .93; }
+
+.icon-light, .icon-dark { display: none; }
+[data-theme="dark"]  #theme-btn .icon-light { display: block; }
+[data-theme="light"] #theme-btn .icon-dark  { display: block; }
+
+.fade-in {
+    opacity: 0;
+    translate: 0 12px;
+    animation: fadeIn .5s ease forwards;
+    animation-delay: var(--delay, 0s);
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; translate: 0 0; }
+}
+
+main {
+    flex: 1;
+    width: 100%;
+    max-width: 560px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(48px, 8vh, 72px);
+}
+
+.hero {
+    text-align: center;
+    width: 100%;
+}
+
+.hero h1 {
+    color: var(--h1);
+    font-size: 48px;
+    cursor: default;
+    user-select: none;
+    margin-bottom: 8px;
+}
+
+.hero p { color: var(--desc); }
+
+nav {
+    width: 100%;
+    max-width: 440px;
+    padding: 20px 20px 22px;
+    border-radius: 16px;
+    background: var(--nav-bg);
+    border: 1px solid var(--nav-border);
+}
+
+nav h2 {
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--h2);
+    text-align: center;
+    padding-bottom: 14px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid var(--nav-divider);
+}
+
+.link-grid {
+    display: grid;
+    gap: 10px;
+}
+
+.link-grid a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 12px 16px;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--link-color);
+    border-radius: 14px;
+    border: 1px solid var(--link-border);
+    transition: opacity .15s ease, scale .15s ease, border-color .2s ease;
+}
+
+.link-grid a svg {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+    max-width: 0;
+    opacity: 0;
+    transition: max-width .35s ease, opacity .35s ease, margin-left .35s ease;
+}
+
+.link-grid a:hover { opacity: .75; border-color: var(--c); }
+
+.link-grid a:hover svg {
+    max-width: 15px;
+    opacity: 1;
+    margin-left: 7px;
+}
+
+.link-grid a:active { scale: .97; }
+
+.footer {
+    color: var(--footer);
+    text-align: center;
+    font-size: 12px;
+    padding-top: 24px;
+}
+
+@media (min-width: 480px) {
+    .link-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 511px) {
+    main {
+        justify-content: flex-start;
+        padding-top: 24px;
+        gap: clamp(40px, 10vw, 56px);
+    }
+    nav { max-width: none; }
+}
