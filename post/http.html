@@ -1,329 +1,306 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" translate="no">
 <head>
-    
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="./res/style.css">
     <link rel="icon" href="../res/logo.svg">
+    <link rel="stylesheet" href="./res/style.css">
     <title>HTTP-запрос</title>
+    <script>
+        const s = localStorage.getItem('theme');
+        document.documentElement.dataset.theme = s ?? (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    </script>
 </head>
 
 <body>
-    <div class="pages-progress" role="progressbar"><div class="pages-progress-segment active" data-index="0" tabindex="0" role="button" aria-label="Go to page 1"></div><div class="pages-progress-segment" data-index="1" tabindex="0" role="button" aria-label="Go to page 2"></div><div class="pages-progress-segment" data-index="2" tabindex="0" role="button" aria-label="Go to page 3"></div><div class="pages-progress-segment" data-index="3" tabindex="0" role="button" aria-label="Go to page 4"></div><div class="pages-progress-segment" data-index="4" tabindex="0" role="button" aria-label="Go to page 5"></div><div class="pages-progress-segment" data-index="5" tabindex="0" role="button" aria-label="Go to page 6"></div><div class="pages-progress-segment" data-index="6" tabindex="0" role="button" aria-label="Go to page 7"></div><div class="pages-progress-segment" data-index="7" tabindex="0" role="button" aria-label="Go to page 8"></div></div>
-
-    <div class="pages-wrapper">
-        <div class="pages-container" style="transition: none; transform: translateX(0%);">
-            
-<div class="page title">
-    <div class="cont">
-        <h1 class="block" style="--index: 0;">HTTP-запрос</h1>
-        <div class="block" style="--index: 1;">
-            <p>
+    <button id="theme-btn" aria-label="Переключить тему">
+        <i data-lucide="sun" class="icon-light"></i>
+        <i data-lucide="moon" class="icon-dark"></i>
+    </button>
+    <main class="article">
+        <header class="article-header">
+            <h1>HTTP-запрос</h1>
+            <p class="article-intro">
                 Чтобы в Интернете что-то от кого-то получить, нужно сделать запрос. В частности, в вебе это
                 HTTP-запросы.
             </p>
-            <p>
-                Пробежимся по основным понятиям, рассмотрим структру и соберем свой HTTP-запрос.
+            <p class="article-intro">
+                Пробежимся по основным понятиям, рассмотрим структуру и соберём свой HTTP-запрос.
             </p>
-        </div>
-    </div>
-</div>
+        </header>
 
-<div class="page">
-    <div class="block" style="--index: 0;">
-        <h2>HTTP</h2>
-        <div class="sub-block">
+        <section class="article-section">
+            <h2>HTTP</h2>
             <p>
                 HyperText Transfer Protocol — протокол передачи гипертекста (текста со ссылками на другие
-                такие
-                тексты), то есть набор правил, по которым:
+                такие тексты), то есть набор правил, по которым:
             </p>
             <ul>
                 <li>клиент отправляет запрос</li>
                 <li>сервер отвечает на него</li>
             </ul>
-        </div>
-    </div>
+        </section>
 
-    <div class="nav-hint">
-        <p>Чтобы перемещаться по страницам, используй свайп на телефоне или кнопки стрелок на клавиатуре</p>
-    </div>
-</div>
-
-<div class="page">
-    <div class="block" style="--index: 0;">
-        <h2>Структура HTTP-запроса</h2>
-        <p>Запрос — это текст со строгой структурой. Простой пример, который дальше разберем:</p>
-        <code class="big">GET /images/landscape.png HTTP/1.1
+        <section class="article-section">
+            <h2>Структура HTTP-запроса</h2>
+            <p>Запрос — это текст со строгой структурой. Простой пример, который дальше разберём:</p>
+            <pre><code>GET /images/landscape.png HTTP/1.1
 Host: eleday.ru
 User-Agent: Chrome
-Accept: image/*</code>
-    </div>
-    <div class="block" style="--index: 1;">
-        <h2>1. Строка запроса</h2>
-        <code>GET /images/landscape.png HTTP/1.1</code>
-        <div class="sub-block">
+Accept: image/*</code></pre>
+        </section>
+
+        <section class="article-section">
+            <h2>1. Строка запроса</h2>
+            <pre><code>GET /images/landscape.png HTTP/1.1</code></pre>
             <p>Здесь три элемента:</p>
             <table>
-                <tbody><tr>
-                    <th>Метод</th>
-                    <td><code>GET</code></td>
-                </tr>
-                <tr>
-                    <th>Путь</th>
-                    <td><code>/images/landscape.png</code></td>
-                </tr>
-                <tr>
-                    <th>Версия протокола</th>
-                    <td><code>HTTP/1.1</code></td>
-                </tr>
-            </tbody></table>
-        </div>
-        <h3>Методы бывают:</h3>
-        <table>
-            <tbody><tr>
-                <th><code>GET</code></th>
-                <td>Получить данные</td>
-            </tr>
-            <tr>
-                <th><code>POST</code></th>
-                <td>Отправить</td>
-            </tr>
-            <tr>
-                <th><code>PUT</code></th>
-                <td>Заменить полностью</td>
-            </tr>
-            <tr>
-                <th><code>DELETE</code></th>
-                <td>Удалить</td>
-            </tr>
-            <tr>
-                <th><code>PATCH</code></th>
-                <td>Изменить частично</td>
-            </tr>
-            <tr>
-                <th><code>HEAD</code></th>
-                <td>Получить заголовки</td>
-            </tr>
-        </tbody></table>
-        <p>и другие. На практике чаще всего используются первые два</p>
-        <h3>Путь</h3>
-        <p>— адрес, который указывает на ресурс, который нужно получить</p>
-        <h3>Версии:</h3>
-        <table>
-            <tbody><tr>
-                <th><code>HTTP/1.0</code></th>
-                <td>Базовая версия протокола. Каждый запрос открывает отдельное соединение с сервером.</td>
-            </tr>
-            <tr>
-                <th><code>HTTP/1.1</code></th>
-                <td>Добавлены постоянные соединения (keep-alive), заголовок Host и более эффективная работа
-                    с
-                    несколькими запросами.</td>
-            </tr>
-            <tr>
-                <th><code>HTTP/2</code></th>
-                <td>Бинарный протокол с мультиплексированием: несколько запросов могут передаваться
-                    одновременно
-                    по
-                    одному соединению.</td>
-            </tr>
-            <tr>
-                <th><code>HTTP/3</code></th>
-                <td>Работает поверх протокола QUIC (UDP). Быстрее устанавливает соединение и лучше
-                    справляется с
-                    потерей пакетов.</td>
-            </tr>
-        </tbody></table>
-    </div>
-</div>
+                <tbody>
+                    <tr>
+                        <th>Метод</th>
+                        <td><code>GET</code></td>
+                    </tr>
+                    <tr>
+                        <th>Путь</th>
+                        <td><code>/images/landscape.png</code></td>
+                    </tr>
+                    <tr>
+                        <th>Версия протокола</th>
+                        <td><code>HTTP/1.1</code></td>
+                    </tr>
+                </tbody>
+            </table>
 
-<div class="page">
-    <div class="block" style="--index: 0;">
-        <h2>2. Заголовки</h2>
-        <p>Дополнительные параметры запроса в формате: <code>Заголовок: значение</code></p>
-        <p>Для нашего запроса это:</p>
-        <table>
-            <tbody><tr>
-                <th><code>Host:<br>eleday.ru</code>
-                </th><td>Указывает доменное имя сервера</td>
-            </tr>
-            <tr>
-                <th><code>User-Agent:<br>Chrome</code>
-                </th><td>Информация о клиентском приложении (браузере), операционной системе и устройстве</td>
-            </tr>
-            <tr>
-                <th><code>Accept:<br>image/*</code>
-                </th><td>Типы данных, которые клиент может обрабатывать</td>
-            </tr>
-        </tbody></table>
-        <p>Еще популярные заголовки:</p>
-        <table>
-            <tbody><tr>
-                <th><code>Content-Type</code></th>
-                <td>Тип передаваемых данных</td>
-            </tr>
-            <tr>
-                <th><code>Authorization</code></th>
-                <td>Авторизационные данные</td>
-            </tr>
-            <tr>
-                <th><code>Cookie</code></th>
-                <td>Куки пользователя</td>
-            </tr>
-            <tr>
-                <th><code>Referer</code></th>
-                <td>Страница, с которой пришёл запрос</td>
-            </tr>
-        </tbody></table>
-    </div>
-</div>
+            <h3>Методы бывают:</h3>
+            <table>
+                <tbody>
+                    <tr>
+                        <th><code>GET</code></th>
+                        <td>Получить данные</td>
+                    </tr>
+                    <tr>
+                        <th><code>POST</code></th>
+                        <td>Отправить</td>
+                    </tr>
+                    <tr>
+                        <th><code>PUT</code></th>
+                        <td>Заменить полностью</td>
+                    </tr>
+                    <tr>
+                        <th><code>DELETE</code></th>
+                        <td>Удалить</td>
+                    </tr>
+                    <tr>
+                        <th><code>PATCH</code></th>
+                        <td>Изменить частично</td>
+                    </tr>
+                    <tr>
+                        <th><code>HEAD</code></th>
+                        <td>Получить заголовки</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>и другие. На практике чаще всего используются первые два</p>
 
-<div class="page">
-    <div class="block" style="--index: 0;">
-        <h2>3. Тело запроса</h2>
-        <p>Иногда у HTTP-запроса есть тело (body), например, в запросах с методами POST, PUT, PATCH.
-            Тело используется, когда клиент отправляет данные серверу.</p>
-        <code class="big">POST /login HTTP/1.1
+            <h3>Путь</h3>
+            <p>— адрес, который указывает на ресурс, который нужно получить</p>
+
+            <h3>Версии:</h3>
+            <table>
+                <tbody>
+                    <tr>
+                        <th><code>HTTP/1.0</code></th>
+                        <td>Базовая версия протокола. Каждый запрос открывает отдельное соединение с сервером.</td>
+                    </tr>
+                    <tr>
+                        <th><code>HTTP/1.1</code></th>
+                        <td>Добавлены постоянные соединения (keep-alive), заголовок Host и более эффективная работа
+                            с несколькими запросами.</td>
+                    </tr>
+                    <tr>
+                        <th><code>HTTP/2</code></th>
+                        <td>Бинарный протокол с мультиплексированием: несколько запросов могут передаваться
+                            одновременно по одному соединению.</td>
+                    </tr>
+                    <tr>
+                        <th><code>HTTP/3</code></th>
+                        <td>Работает поверх протокола QUIC (UDP). Быстрее устанавливает соединение и лучше
+                            справляется с потерей пакетов.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="article-section">
+            <h2>2. Заголовки</h2>
+            <p>Дополнительные параметры запроса в формате: <code>Заголовок: значение</code></p>
+            <p>Для нашего запроса это:</p>
+            <table>
+                <tbody>
+                    <tr>
+                        <th><code>Host: eleday.ru</code></th>
+                        <td>Указывает доменное имя сервера</td>
+                    </tr>
+                    <tr>
+                        <th><code>User-Agent: Chrome</code></th>
+                        <td>Информация о клиентском приложении (браузере), операционной системе и устройстве</td>
+                    </tr>
+                    <tr>
+                        <th><code>Accept: image/*</code></th>
+                        <td>Типы данных, которые клиент может обрабатывать</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Ещё популярные заголовки:</p>
+            <table>
+                <tbody>
+                    <tr>
+                        <th><code>Content-Type</code></th>
+                        <td>Тип передаваемых данных</td>
+                    </tr>
+                    <tr>
+                        <th><code>Authorization</code></th>
+                        <td>Авторизационные данные</td>
+                    </tr>
+                    <tr>
+                        <th><code>Cookie</code></th>
+                        <td>Куки пользователя</td>
+                    </tr>
+                    <tr>
+                        <th><code>Referer</code></th>
+                        <td>Страница, с которой пришёл запрос</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="article-section">
+            <h2>3. Тело запроса</h2>
+            <p>Иногда у HTTP-запроса есть тело (body), например, в запросах с методами POST, PUT, PATCH.
+                Тело используется, когда клиент отправляет данные серверу.</p>
+            <pre><code>POST /login HTTP/1.1
 Host: example.com
 Content-Type: application/json
 
 {
-"login": "vasya",
-"password": "123456"
-}</code>
-        <p>Тело:</p>
-        <code class="big">{
-"login": "vasya",
-"password": "123456"  
-}</code>
-    </div>
-    <div class="block" style="--index: 1;">
-        <h2>Ответ</h2>
-        <p>В таком виде запрос отправляется на сервер:</p>
-        <code class="big">GET /hello HTTP/1.1
-Host: eleday.ru</code>
-        <p>А сервер присылает ответ:</p>
-        <code class="big">HTTP/1.1 200 OK
+  "login": "vasya",
+  "password": "123456"
+}</code></pre>
+        </section>
+
+        <section class="article-section">
+            <h2>Ответ</h2>
+            <p>В таком виде запрос отправляется на сервер:</p>
+            <pre><code>GET /hello HTTP/1.1
+Host: eleday.ru</code></pre>
+            <p>А сервер присылает ответ:</p>
+            <pre><code>HTTP/1.1 200 OK
 Content-Type: application/octet-stream
 Content-Length: 12
 
-hello world!</code>
-        <p>Тут тоже есть заголовки и тело запроса</p>
-    </div>
-</div>
+hello world!</code></pre>
+            <p>Тут тоже есть заголовки и тело ответа</p>
+        </section>
 
-<div class="page">
-    <div class="block" style="--index: 0;">
-        <h2>URL-параметры</h2>
-        <p>У GET-запросов нет тела, в котором можно было бы передать дополнительные данные, но иногда они нужны,
-            например, в поисковых запросах.</p>
-        <p>В таких случаях используются URL-параметры, которые передаются прямо в пути после знака вопроса в формате
-            <code>ключ1=значение1&amp;ключ2=значение2&amp;...</code></p>
-        <p>Например</p>
-        <code>/search?q=http-запрос&amp;sort=recent</code>
-    </div>
-</div>
+        <section class="article-section">
+            <h2>URL-параметры</h2>
+            <p>У GET-запросов нет тела, в котором можно было бы передать дополнительные данные, но иногда они нужны,
+                например, в поисковых запросах.</p>
+            <p>В таких случаях используются URL-параметры, которые передаются прямо в пути после знака вопроса в формате
+                <code>ключ1=значение1&ключ2=значение2&...</code></p>
+            <p>Например:</p>
+            <pre><code>/search?q=http-запрос&sort=recent</code></pre>
+        </section>
 
-<div class="page">
-    <div class="block" style="--index: 0;">
-        <h2>Собери свой HTTP-запрос</h2>
-        <p>Теперь попробуй создать и отправить запрос прямо отсюда: выбери метод, введи URL и заголовки и отправь</p>
-    </div>
-
-    <div class="block security-info" style="--index: 1;">
-        <h3>Не отправляй чувствительные данные (пароли, личные данные и т. д.)</h3>
-    </div>
-
-    <div class="block" style="--index: 2;">
-        <div class="request-builder">
-            <div class="form-group">
-                <label for="req-method">Метод:</label>
-                <select id="req-method">
-                    <option value="OPTIONS">OPTIONS</option>
-                    <option value="GET">GET</option>
-                    <option value="POST">POST</option>
-                    <option value="PUT">PUT</option>
-                    <option value="DELETE">DELETE</option>
-                    <option value="PATCH">PATCH</option>
-                    <option value="HEAD">HEAD</option>
-                </select>
+        <section class="article-section article-section--highlight">
+            <h2>Собери свой HTTP-запрос</h2>
+            <p>Теперь попробуй создать и отправить запрос прямо отсюда: выбери метод, введи URL и заголовки и отправь</p>
+            
+            <div class="security-warning">
+                <strong>Не отправляй чувствительные данные</strong> (пароли, личные данные и т. д.)
             </div>
 
-            <div class="form-group">
-                <label for="req-url">URL:</label>
-                <input type="text" id="req-url" placeholder="https://eleday.ru/options" value="https://eleday.ru/options">
+            <div class="request-builder">
+                <div class="form-group">
+                    <label for="req-method">Метод:</label>
+                    <select id="req-method">
+                        <option value="OPTIONS">OPTIONS</option>
+                        <option value="GET" selected>GET</option>
+                        <option value="POST">POST</option>
+                        <option value="PUT">PUT</option>
+                        <option value="DELETE">DELETE</option>
+                        <option value="PATCH">PATCH</option>
+                        <option value="HEAD">HEAD</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="req-url">URL:</label>
+                    <input type="text" id="req-url" placeholder="https://example.com/api" value="https://eleday.ru/options">
+                </div>
+
+                <div class="form-group">
+                    <label for="req-headers">Заголовки (опционально):</label>
+                    <textarea id="req-headers" placeholder="Authorization: Bearer token
+Custom-Header: value" rows="3"></textarea>
+                    <small>Формат: Header-Name: value (каждая пара на новой строке)</small>
+                </div>
+
+                <div id="req-body-group" class="form-group" style="display: none;">
+                    <label for="req-body">Тело (body):</label>
+                    <textarea id="req-body" placeholder='{"name": "value"}' rows="4"></textarea>
+                </div>
+
+                <button id="req-send" class="btn-send">Отправить запрос</button>
             </div>
 
-            <div class="form-group">
-                <label for="req-headers">Заголовки (опционально):</label>
-                <textarea id="req-headers" placeholder="Authorization: Bearer token
-Custom-Header: value"></textarea>
-                <small>Формат: Header-Name: value</small>
+            <div class="quick-examples">
+                <h4>Быстрые примеры</h4>
+                <div class="examples-grid">
+                    <button class="example-btn" data-method="GET" data-url="https://eleday.ru/get?name=Иван&count=2">GET с параметрами</button>
+                    <button class="example-btn" data-method="POST" data-url="https://eleday.ru/post" data-body='{"name":"Иван","age":25}'>POST с данными</button>
+                    <button class="example-btn" data-method="PUT" data-url="https://eleday.ru/put" data-body='{"id":1,"name":"Пётр","status":"active"}'>PUT запрос</button>
+                    <button class="example-btn" data-method="DELETE" data-url="https://eleday.ru/delete?id=123">DELETE запрос</button>
+                    <button class="example-btn" data-method="PATCH" data-url="https://eleday.ru/patch" data-body='{"name":"Новое имя"}'>PATCH запрос</button>
+                    <button class="example-btn" data-method="OPTIONS" data-url="https://eleday.ru/options">OPTIONS запрос</button>
+                </div>
             </div>
 
-            <div id="req-body-group" class="form-group" style="display: none;">
-                <label for="req-body">Тело (body):</label>
-                <textarea id="req-body" placeholder="{&quot;name&quot;: &quot;value&quot;}"></textarea>
+            <div id="req-loading" class="request-loading" style="display: none;">
+                <span class="loading-spinner"></span>
+                <span>Отправляю запрос...</span>
             </div>
 
-            <button id="req-send" class="btn-send">Отправить запрос</button>
-        </div>
-
-        <div class="quick-examples">
-            <h4>Быстрые примеры</h4>
-            <div style="display:flex;flex-wrap:wrap;gap:0">
-                <button class="example-btn" data-method="GET" data-url="https://eleday.ru/get?name=Иван&amp;count=2">GET с параметрами</button>
-                <button class="example-btn" data-method="POST" data-url="https://eleday.ru/post" data-body="{&quot;name&quot;:&quot;Иван&quot;,&quot;age&quot;:25}">POST с данными</button>
-                <button class="example-btn" data-method="PUT" data-url="https://eleday.ru/put" data-body="{&quot;id&quot;:1,&quot;name&quot;:&quot;Пётр&quot;,&quot;status&quot;:&quot;active&quot;}">PUT запрос</button>
-                <button class="example-btn" data-method="DELETE" data-url="https://eleday.ru/delete?id=123">DELETE запрос</button>
-                <button class="example-btn" data-method="PATCH" data-url="https://eleday.ru/patch" data-body="{&quot;name&quot;:&quot;Новое имя&quot;}">PATCH запрос</button>
-                <button class="example-btn" data-method="OPTIONS" data-url="https://eleday.ru/options">OPTIONS запрос</button>
+            <div id="req-result" class="request-result" style="display: none;">
+                <h3>Ответ сервера</h3>
+                <div class="result-section">
+                    <span class="result-label">Статус:</span>
+                    <code id="req-status">-</code>
+                </div>
+                <div class="result-section">
+                    <span class="result-label">Заголовки ответа:</span>
+                    <div id="req-response-headers" class="code-block"></div>
+                </div>
+                <div class="result-section">
+                    <span class="result-label">Тело ответа:</span>
+                    <pre id="req-response-body" class="code-block"></pre>
+                </div>
             </div>
-        </div>
-    </div>
 
-    <div id="req-loading" class="block" style="display: none; text-align: center; --index: 3;">
-        <p>⏳ Отправляю запрос...</p>
-    </div>
+            <div id="req-error" class="request-error" style="display: none;">
+                <strong>Ошибка</strong>
+                <p id="req-error-text"></p>
+            </div>
+        </section>
 
-    <div id="req-result" class="block" style="display: none; --index: 4;">
-        <h3>Ответ сервера</h3>
+        <footer class="article-footer">
+            <p>Как тебе такой формат статей? Оставь своё мнение в <a href="https://t.me/eleday/2119">опросе</a></p>
+        </footer>
+    </main>
 
-        <div class="result-section">
-            <strong>Статус:</strong>
-            <code id="req-status">-</code>
-        </div>
-
-        <div class="result-section">
-            <strong>Заголовки ответа:</strong>
-            <div id="req-response-headers" class="code-block"></div>
-        </div>
-
-        <div class="result-section">
-            <strong>Тело ответа:</strong>
-            <div id="req-response-body" class="code-block"></div>
-        </div>
-    </div>
-
-    <div id="req-error" class="block error" style="display: none; --index: 5;">
-        <strong>⚠️ Ошибка:</strong>
-        <p id="req-error-text"></p>
-    </div>
-</div>
-
-<div class="page">
-    <div class="block" style="--index: 0;">
-        <p>Как тебе такой формат статей? Оставь свое мнение в <a href="https://t.me/eleday/2119">опросе</a></p>
-    </div>
-</div>
-
-        </div>
-    </div>
-
-    <script src="./res/main.js" defer=""></script>
-
-
-</body></html>
+    <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+    <script src="./res/main.js" defer></script>
+</body>
+</html>
