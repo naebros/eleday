@@ -7,8 +7,8 @@
     --text: #f4f4f5;
     --text-muted: #71717a;
     --text-dim: #a1a1aa;
-    --accent: #60a5fa;
-    --accent-hover: #93c5fd;
+    --accent:rgb(85, 85, 85);
+    --accent-hover: rgb(67, 67, 67);
     --code-bg: #27272a;
     --border: #3f3f46;
     --error-bg: #450a0a;
@@ -27,8 +27,8 @@
     --text: #1a1a1b;
     --text-muted: #6c757d;
     --text-dim: #444951;
-    --accent: #2a5885;
-    --accent-hover: #1e3a5f;
+    --accent: #000000;
+    --accent-hover: #292929;
     --code-bg: #f1f2f3;
     --border: #e1e4e8;
     --error-bg: #fff5f5;
@@ -168,8 +168,7 @@ a:hover {
 }
 
 pre {
-    background: #18181a;
-    border: 1px solid var(--border);
+    border: 2px solid var(--border);
     border-radius: var(--radius);
     padding: 16px;
     overflow-x: auto;
@@ -179,8 +178,8 @@ pre {
 code {
     font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
     font-size: 0.9em;
-    background: #18181a;
-    color: var(--text);
+    background: var(--code-bg);
+    color: var(---code-b-text);
     padding: 2px 6px;
     border-radius: 4px;
 }
@@ -211,7 +210,6 @@ th, td {
 th {
     color: var(--text);
     font-weight: 500;
-    background: #18181a;
     width: 35%;
 }
 
@@ -225,8 +223,7 @@ tr:last-child td {
 }
 
 .article-section--highlight {
-    background: #18181a;
-    border: 1px solid var(--border);
+    border: 2px solid var(--border);
     border-radius: var(--radius);
     padding: 24px;
 }
