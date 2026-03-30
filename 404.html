@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="icon" href="./res/logo.svg">
     <title>404 — eleday</title>
-    <link rel="stylesheet" href="./res/style.css">
     <script>
         const s = localStorage.getItem('theme');
         document.documentElement.dataset.theme = s ?? (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
     </script>
+    <link rel="stylesheet" href="./res/style.css">
+    <script src="./res/theme.js"></script>
     <style>.hero h1 { font-size: 96px; }</style>
 </head>
 <body translate="no">

@@ -1,10 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap');
-
-*, *::before, *::after {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-}
+@import url('./global.css');
 
 :root, [data-theme="dark"] {
     --bg: #050505;
@@ -42,33 +36,6 @@ body {
     font-family: 'Inter', sans-serif;
     transition: background .25s ease;
 }
-
-a { text-decoration: none; color: inherit; }
-
-#theme-btn {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    border: 1px solid var(--nav-border);
-    background: var(--nav-bg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 100;
-    transition: opacity .15s ease, scale .15s ease;
-}
-
-#theme-btn svg { width: 16px; height: 16px; color: var(--h1); }
-#theme-btn:hover { opacity: .7; }
-#theme-btn:active { scale: .92; }
-
-.icon-light, .icon-dark { display: none; }
-[data-theme="dark"]  #theme-btn .icon-light { display: block; }
-[data-theme="light"] #theme-btn .icon-dark  { display: block; }
 
 .fade-in {
     opacity: 0;
@@ -175,49 +142,20 @@ nav h2 {
 
 pre {
     border: 2px solid var(--nav-border);
-    border-radius: 8px;
-    padding: 16px;
-    overflow-x: auto;
-    margin: 16px 0;
-    position: relative;
     background: var(--bg);
     color: var(--h1);
-    font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
-    font-size: 0.875rem;
-    line-height: 1.7;
 }
 
 code {
-    font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
-    font-size: 0.9em;
     background: rgba(255,255,255,.1);
     color: var(--h1);
-    padding: 2px 6px;
-    border-radius: 4px;
-}
-
-pre code {
-    background: none;
-    padding: 0;
 }
 
 .copy-btn {
-    position: absolute;
-    top: 8px;
-    right: 8px;
     background: var(--nav-bg);
     border: 1px solid var(--nav-border);
-    border-radius: 4px;
-    padding: 4px 8px;
-    font-size: 0.75rem;
     color: var(--desc);
-    cursor: pointer;
     opacity: 0;
-    transition: opacity 0.2s ease;
-}
-
-pre:hover .copy-btn {
-    opacity: 1;
 }
 
 .copy-btn:hover {

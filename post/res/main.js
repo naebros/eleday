@@ -1,14 +1,3 @@
-/**
- * HTTP Request Builder
- * Safe educational tool for sending HTTP requests from the browser
- */
-
-document.getElementById('theme-btn').addEventListener('click', () => {
-    const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
-    document.documentElement.dataset.theme = next;
-    localStorage.setItem('theme', next);
-});
-
 class HTTPRequestBuilder {
     constructor() {
         this.methodSelect = document.getElementById('req-method');

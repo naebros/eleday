@@ -11,6 +11,7 @@
         const s = localStorage.getItem('theme');
         document.documentElement.dataset.theme = s ?? (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
     </script>
+    <script src="res/theme.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
@@ -78,7 +79,6 @@
 
         a { color: inherit; text-decoration: none; }
 
-        /* ─── Layout ─── */
         .app {
             display: grid;
             grid-template-columns: 320px 1fr;
@@ -87,7 +87,6 @@
             overflow: hidden;
         }
 
-        /* ─── Topbar ─── */
         .topbar {
             grid-column: 1 / -1;
             display: flex;
@@ -183,7 +182,6 @@
         [data-theme="dark"]  #theme-btn .icon-light { display: block; }
         [data-theme="light"] #theme-btn .icon-dark  { display: block; }
 
-        /* ─── Sidebar ─── */
         .sidebar {
             border-right: 1px solid var(--border);
             background: var(--surface);
@@ -207,7 +205,6 @@
             margin-bottom: 10px;
         }
 
-        /* ─── Block palette ─── */
         .block-palette {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -236,7 +233,6 @@
 
         .palette-item svg { width: 18px; height: 18px; opacity: .6; }
 
-        /* ─── Article meta ─── */
         .meta-field {
             display: flex;
             flex-direction: column;
@@ -269,7 +265,6 @@
 
         textarea.meta-input { resize: vertical; line-height: 1.5; }
 
-        /* ─── Canvas ─── */
         .canvas-wrap {
             overflow-y: auto;
             background: var(--bg);
@@ -285,7 +280,6 @@
             flex: 1;
         }
 
-        /* ─── Empty state ─── */
         .empty-state {
             display: flex;
             flex-direction: column;
@@ -303,7 +297,6 @@
 
         .empty-state svg { width: 28px; height: 28px; opacity: .3; }
 
-        /* ─── Block ─── */
         .block {
             position: relative;
             margin-bottom: 6px;
@@ -352,12 +345,10 @@
 
         .drag-handle:active { cursor: grabbing; }
 
-        /* ─── Block inner padding ─── */
         .block-inner {
             padding: 10px 12px;
         }
 
-        /* ─── Editable fields ─── */
         .block-field {
             width: 100%;
             background: transparent;
@@ -373,27 +364,23 @@
 
         .block-field::placeholder { color: var(--text-muted); opacity: .5; }
 
-        /* ─── H2 block ─── */
         .block-h2 .block-field {
             font-size: 1.4rem;
             font-weight: 600;
             line-height: 1.25;
         }
 
-        /* ─── H3 block ─── */
         .block-h3 .block-field {
             font-size: 1.1rem;
             font-weight: 600;
         }
 
-        /* ─── Text block ─── */
         .block-text .block-field {
             font-size: 1rem;
             color: var(--text-dim);
             line-height: 1.7;
         }
 
-        /* ─── Code block ─── */
         .block-code .block-inner { padding: 0; }
 
         .block-code pre {
@@ -413,7 +400,6 @@
             overflow-x: auto;
         }
 
-        /* ─── Table block ─── */
         .block-table .block-inner { padding: 0; }
 
         .table-controls {
@@ -482,7 +468,6 @@
         .table-add-row:hover { border-color: var(--accent); color: var(--text); }
         .table-add-row svg { width: 12px; height: 12px; }
 
-        /* ─── Preview divider ─── */
         .article-preview-header {
             border-bottom: 1px solid var(--border);
             padding-bottom: 24px;
@@ -502,7 +487,6 @@
             margin-bottom: 8px;
         }
 
-        /* ─── Toast ─── */
         .toast {
             position: fixed;
             bottom: 24px;
@@ -525,7 +509,6 @@
 
         .toast.show { opacity: 1; scale: 1; }
 
-        /* ─── Scrollbar ─── */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
@@ -539,7 +522,6 @@
 <body>
 <div class="app">
 
-    <!-- Topbar -->
     <header class="topbar">
         <div class="topbar-left">
             <span class="topbar-logo">eleday <span>/</span> новая статья</span>
@@ -561,7 +543,6 @@
         </div>
     </header>
 
-    <!-- Sidebar -->
     <aside class="sidebar">
         <div class="sidebar-section">
             <div class="sidebar-section-title">Мета</div>
@@ -602,7 +583,6 @@
         </div>
     </aside>
 
-    <!-- Canvas -->
     <main class="canvas-wrap" id="canvas-wrap">
         <div class="canvas" id="canvas">
             <div class="article-preview-header" id="preview-header">
@@ -618,10 +598,9 @@
     </main>
 </div>
 
-<!-- Toast -->
+
 <div class="toast" id="toast"></div>
 
-<!-- Preview modal -->
 <div id="preview-modal" style="display:none;position:fixed;inset:0;z-index:200;background:var(--bg);overflow-y:auto;">
     <div style="max-width:800px;margin:0 auto;padding:40px 24px 80px;">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:32px;padding-bottom:20px;border-bottom:1px solid var(--border);">
@@ -1031,7 +1010,6 @@ function generatePreviewHTML() {
     return html;
 }
 
-// initial render
 render();
 </script>
 </body>

@@ -12,6 +12,7 @@
         const s = localStorage.getItem('theme');
         document.documentElement.dataset.theme = s ?? (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
     </script>
+    <script src="../res/theme.js"></script>
 </head>
 
 <body>
