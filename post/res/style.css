@@ -206,6 +206,10 @@ tr:last-child td {
     border-bottom: none;
 }
 
+.article-section.hidden {
+    display: none;
+}
+
 .security-warning strong {
     color: var(--accent);
 }
@@ -411,16 +415,42 @@ tr:last-child td {
 .code-block {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.85rem;
-    background: #18181a;
-    color: var(--text);
+}
+
+#scroll-to-top-btn {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
     border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 14px;
-    line-height: 1.6;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    max-height: 300px;
-    overflow-y: auto;
+    background: var(--nav-bg);
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 99;
+    opacity: 0;
+    scale: 0.8;
+    pointer-events: none;
+    transition: opacity 0.3s ease, scale 0.3s ease;
+}
+
+#scroll-to-top-btn.show {
+    opacity: 1;
+    scale: 1;
+    pointer-events: auto;
+}
+
+#scroll-to-top-btn:hover {
+    opacity: 0.8;
+    scale: 1.1;
+}
+
+#scroll-to-top-btn:active {
+    scale: 0.95;
 }
 
 .code-block div {
