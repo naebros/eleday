@@ -176,6 +176,36 @@ pre code {
     transform: scale(0.97);
 }
 
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 0.95rem;
+}
+
+th, td {
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-dim);
+    vertical-align: top;
+}
+
+th {
+    color: var(--text);
+    font-weight: 500;
+    width: 35%;
+}
+
+th code, td code {
+    font-size: 0.85em;
+}
+
+tr:last-child th,
+tr:last-child td {
+    border-bottom: none;
+}
+
 .security-warning strong {
     color: var(--accent);
 }
