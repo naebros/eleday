@@ -1,32 +1,27 @@
 @import url('../../res/global.css');
 
-:/* 1. БАЗОВЫЕ ПЕРЕМЕННЫЕ (Не зависят от темы) */
 :root {
-    --radius: 8px;
-    --radius-sm: 6px;
+    --radius: 30px;
+    --radius-sm: 15px;
 }
 
-/* 2. ТЕМНАЯ ТЕМА (Установлена по умолчанию) */
+
 :root, [data-theme="dark"] {
     color-scheme: dark; /* Сообщает браузеру использовать темные скроллбары */
     
-    /* Фоны и интерфейс */
     --bg: #0f0f11;
     --surface: #18181b;
     --border: #3f3f46;
     --nav-bg: linear-gradient(145deg, #1f1f23, #161618);
     
-    /* Текст */
     --text: #f4f4f5;
     --text-dim: #a1a1aa;
     --text-muted: #71717a;
     
-    /* Акценты и код */
-    --accent: #555555;       /* Переведено из rgb(85, 85, 85) в HEX для единообразия */
-    --accent-hover: #434343; /* Переведено из rgb(67, 67, 67) в HEX */
+    --accent: #555555;       
+    --accent-hover: #434343;
     --code-bg: #27272a;
     
-    /* Уведомления и статусы */
     --error-bg: #450a0a;
     --error-border: #991b1b;
     --error-text: #fca5a5;
@@ -34,27 +29,22 @@
     --warn-border: #a16207;
 }
 
-/* 3. СВЕТЛАЯ ТЕМА */
 [data-theme="light"] {
     color-scheme: light;
     
-    /* Фоны и интерфейс */
     --bg: #f8f9fa;
     --surface: #ffffff;
     --border: #e1e4e8;
     --nav-bg: linear-gradient(145deg, #ffffff, #f9f9f9);
     
-    /* Текст */
     --text: #1a1a1b;
     --text-dim: #444951;
     --text-muted: #6c757d;
     
-    /* Акценты и код */
     --accent: #000000;
     --accent-hover: #292929;
     --code-bg: #f1f2f3;
     
-    /* Уведомления и статусы (ДОБАВЛЕНЫ НЕДОСТАЮЩИЕ ЦВЕТА) */
     --error-bg: #fef2f2;
     --error-border: #f87171;
     --error-text: #991b1b;
