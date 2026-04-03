@@ -101,6 +101,22 @@ a:hover {
     font-weight: bold;
 }
 
+figure {
+    margin: 16px 0;
+    text-align: center;
+}
+
+figure img {
+    max-width: 100%;
+    border-radius: var(--radius);
+}
+
+figure figcaption {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: 8px;
+}
+
 pre {
     border: 2px solid var(--border);
     border-radius: var(--radius);
@@ -466,6 +482,10 @@ tr:last-child td {
 @media (max-width: 640px) {
     .article {
         padding: 24px 16px 60px;
+    }
+    .article-header{
+        margin-bottom: 12px;
+        padding-bottom: 12px;
     }
 
     .article-header h1 {

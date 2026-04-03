@@ -250,12 +250,10 @@ class HTTPRequestBuilder {
 
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
-        lucide.createIcons();
         window.httpRequestBuilder = new HTTPRequestBuilder();
         addCopyButtons();
     });
 } else {
-    lucide.createIcons();
     window.httpRequestBuilder = new HTTPRequestBuilder();
     addCopyButtons();
 }

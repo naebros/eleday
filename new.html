@@ -36,8 +36,8 @@
                 Скачать HTML
             </button>
             <button id="theme-btn" aria-label="Переключить тему">
-                <i data-lucide="sun" class="icon-light"></i>
-                <i data-lucide="moon" class="icon-dark"></i>
+                <svg class="icon-light" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+                <svg class="icon-dark" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
             </button>
         </div>
     </header>
@@ -73,6 +73,10 @@
                 <button class="palette-item" data-type="code">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
                     Код
+                </button>
+                <button class="palette-item" data-type="image">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+                    Изображение
                 </button>
                 <button class="palette-item" data-type="table">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg>
@@ -110,10 +114,7 @@
     </div>
 </div>
 
-<script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
 <script>
-lucide.createIcons();
-
 // ─── Toast ───
 function showToast(msg) {
     const t = document.getElementById('toast');
@@ -159,6 +160,7 @@ function createBlock(type) {
 
 function getDefaultData(type) {
     if (type === 'table') return { rows: [['', ''], ['', '']] };
+    if (type === 'image') return { url: '', alt: '' };
     return { text: '' };
 }
 
@@ -230,6 +232,33 @@ function buildBlockEl(block, idx) {
         ta.autocomplete = 'off';
         pre.appendChild(ta);
         inner.appendChild(pre);
+    } else if (block.type === 'image') {
+        const urlInput = document.createElement('input');
+        urlInput.type = 'text';
+        urlInput.className = 'block-field';
+        urlInput.placeholder = 'URL изображения...';
+        urlInput.value = block.data.url || '';
+        urlInput.addEventListener('input', () => {
+            block.data.url = urlInput.value;
+            imgPreview.src = urlInput.value;
+            imgPreview.style.display = urlInput.value ? '' : 'none';
+        });
+
+        const altInput = document.createElement('input');
+        altInput.type = 'text';
+        altInput.className = 'block-field';
+        altInput.placeholder = 'Alt-текст (описание)...';
+        altInput.value = block.data.alt || '';
+        altInput.addEventListener('input', () => { block.data.alt = altInput.value; });
+
+        const imgPreview = document.createElement('img');
+        imgPreview.style.cssText = 'max-width:100%;border-radius:8px;margin-top:8px;';
+        imgPreview.style.display = block.data.url ? '' : 'none';
+        if (block.data.url) imgPreview.src = block.data.url;
+
+        inner.appendChild(urlInput);
+        inner.appendChild(altInput);
+        inner.appendChild(imgPreview);
     } else if (block.type === 'table') {
         inner.appendChild(buildTableEditor(block));
     }
@@ -370,7 +399,7 @@ function generateHTML() {
     blocks.forEach(b => {
         if (b.type === 'h2') {
             if (sectionOpen) sectionsHTML += `        </section>\n`;
-            sectionsHTML += `\n        <section class="article-section">\n            <h2>${esc(b.data.text)}</h2>\n`;
+            sectionsHTML += `\n        <section class="article-section">\n            <h2>${renderInline(b.data.text)}</h2>\n`;
             sectionOpen = true;
         } else {
             if (!sectionOpen) {
@@ -378,9 +407,15 @@ function generateHTML() {
                 sectionOpen = true;
             }
             if (b.type === 'h3') {
-                sectionsHTML += `            <h3>${esc(b.data.text)}</h3>\n`;
+                sectionsHTML += `            <h3>${renderInline(b.data.text)}</h3>\n`;
             } else if (b.type === 'text') {
-                sectionsHTML += `            <p>${esc(b.data.text)}</p>\n`;
+                sectionsHTML += `            <p>${renderInline(b.data.text)}</p>\n`;
+            } else if (b.type === 'image') {
+                const alt = esc(b.data.alt || '');
+                const src = esc(b.data.url || '');
+                sectionsHTML += `            <figure>\n                <img src="${src}" alt="${alt}" loading="lazy">\n`;
+                if (alt) sectionsHTML += `                <figcaption>${alt}</figcaption>\n`;
+                sectionsHTML += `            </figure>\n`;
             } else if (b.type === 'code') {
                 sectionsHTML += `            <pre><code>${esc(b.data.text)}</code></pre>\n`;
             } else if (b.type === 'table') {
@@ -400,7 +435,7 @@ function generateHTML() {
     if (sectionOpen) sectionsHTML += '        </section>';
 
     const introLines = intro
-        ? intro.split('\n').filter(l => l.trim()).map(l => `            <p class="article-intro">${esc(l)}</p>`).join('\n')
+        ? intro.split('\n').filter(l => l.trim()).map(l => `            <p class="article-intro">${renderInline(l)}</p>`).join('\n')
         : '';
 
     return `<!DOCTYPE html>
@@ -421,8 +456,8 @@ function generateHTML() {
 
 <body>
     <button id="theme-btn" aria-label="Переключить тему">
-        <i data-lucide="sun" class="icon-light"></i>
-        <i data-lucide="moon" class="icon-dark"></i>
+        <svg class="icon-light" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/><\/svg>
+        <svg class="icon-dark" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/><\/svg>
     </button>
     <main class="article">
         <header class="article-header">
@@ -432,14 +467,22 @@ ${introLines}
 ${sectionsHTML}
     </main>
 
-    <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"><\/script>
-    <script src="../res/main.js" defer><\/script>
+    <script src="../res/theme.js"><\/script>
 </body>
 </html>`;
 }
 
 function esc(str) {
     return (str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function renderInline(str) {
+    let s = esc(str);
+    s = s.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    s = s.replace(/\*(.+?)\*/g, '<em>$1</em>');
+    s = s.replace(/`(.+?)`/g, '<code>$1</code>');
+    s = s.replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2">$1</a>');
+    return s;
 }
 
 // ─── Download ───
@@ -479,18 +522,24 @@ function generatePreviewHTML() {
     html += `<h1 style="font-size:2rem;font-weight:700;margin-bottom:12px;">${esc(title)}</h1>`;
     if (intro) {
         intro.split('\n').filter(l => l.trim()).forEach(l => {
-            html += `<p style="font-size:1.05rem;color:var(--text-dim);margin-bottom:8px;">${esc(l)}</p>`;
+            html += `<p style="font-size:1.05rem;color:var(--text-dim);margin-bottom:8px;">${renderInline(l)}</p>`;
         });
     }
     html += `</div>`;
 
     blocks.forEach(b => {
         if (b.type === 'h2') {
-            html += `<h2 style="font-size:1.5rem;font-weight:600;color:var(--text);margin:32px 0 12px;padding-top:8px;">${esc(b.data.text || '—')}</h2>`;
+            html += `<h2 style="font-size:1.5rem;font-weight:600;color:var(--text);margin:32px 0 12px;padding-top:8px;">${renderInline(b.data.text || '—')}</h2>`;
         } else if (b.type === 'h3') {
-            html += `<h3 style="font-size:1.1rem;font-weight:600;color:var(--text);margin:20px 0 8px;">${esc(b.data.text || '—')}</h3>`;
+            html += `<h3 style="font-size:1.1rem;font-weight:600;color:var(--text);margin:20px 0 8px;">${renderInline(b.data.text || '—')}</h3>`;
         } else if (b.type === 'text') {
-            html += `<p style="color:var(--text-dim);margin-bottom:12px;line-height:1.7;">${esc(b.data.text || '')}</p>`;
+            html += `<p style="color:var(--text-dim);margin-bottom:12px;line-height:1.7;">${renderInline(b.data.text || '')}</p>`;
+        } else if (b.type === 'image') {
+            const alt = esc(b.data.alt || '');
+            const src = esc(b.data.url || '');
+            html += `<figure style="margin:16px 0;text-align:center;"><img src="${src}" alt="${alt}" style="max-width:100%;border-radius:8px;" loading="lazy">`;
+            if (alt) html += `<figcaption style="font-size:.85rem;color:var(--text-muted);margin-top:8px;">${alt}</figcaption>`;
+            html += `</figure>`;
         } else if (b.type === 'code') {
             html += `<pre style="border:1px solid var(--border);border-radius:8px;padding:14px 16px;margin:12px 0;overflow-x:auto;"><code style="font-family:'JetBrains Mono',monospace;font-size:.875rem;line-height:1.7;">${esc(b.data.text || '')}</code></pre>`;
         } else if (b.type === 'table') {

@@ -3,26 +3,22 @@
 :root, [data-theme="dark"] {
     --bg: #050505;
     --nav-bg: linear-gradient(145deg, #101010, #0a0a0a);
-    --nav-border: rgba(255,255,255,.08);
+    --border: rgba(255,255,255,.08);
     --nav-divider: rgba(255,255,255,.06);
-    --h1: #fff;
-    --h2: rgba(255,255,255,.85);
-    --desc: #9b9b9b;
-    --footer: #8c8c8c;
-    --link-color: rgba(255,255,255,.92);
+    --text: #fff;
+    --text-dim: rgba(255,255,255,.85);
+    --text-muted: #9b9b9b;
     --link-border: #1c1c1c;
 }
 
 [data-theme="light"] {
     --bg: #f5f5f5;
     --nav-bg: linear-gradient(145deg, #fff, #f9f9f9);
-    --nav-border: rgba(0,0,0,.08);
+    --border: rgba(0,0,0,.08);
     --nav-divider: rgba(0,0,0,.06);
-    --h1: #0a0a0a;
-    --h2: rgba(0,0,0,.7);
-    --desc: #666;
-    --footer: #999;
-    --link-color: rgba(0,0,0,.85);
+    --text: #0a0a0a;
+    --text-dim: rgba(0,0,0,.7);
+    --text-muted: #666;
     --link-border: #e0e0e0;
 }
 
@@ -65,14 +61,14 @@ main {
 }
 
 .hero h1 {
-    color: var(--h1);
+    color: var(--text);
     font-size: 48px;
     cursor: default;
     user-select: none;
     margin-bottom: 8px;
 }
 
-.hero p { color: var(--desc); }
+.hero p { color: var(--text-muted); }
 
 nav {
     width: 100%;
@@ -80,7 +76,7 @@ nav {
     padding: 20px 20px 22px;
     border-radius: 16px;
     background: var(--nav-bg);
-    border: 1px solid var(--nav-border);
+    border: 1px solid var(--border);
 }
 
 nav h2 {
@@ -88,7 +84,7 @@ nav h2 {
     font-weight: 600;
     letter-spacing: .04em;
     text-transform: uppercase;
-    color: var(--h2);
+    color: var(--text-dim);
     text-align: center;
     padding-bottom: 14px;
     margin-bottom: 16px;
@@ -108,7 +104,7 @@ nav h2 {
     padding: 12px 16px;
     font-size: 15px;
     font-weight: 500;
-    color: var(--link-color);
+    color: var(--text);
     border-radius: 14px;
     border: 1px solid var(--link-border);
     transition: opacity .15s ease, scale .15s ease, border-color .2s ease;
@@ -134,32 +130,32 @@ nav h2 {
 .link-grid a:active { scale: .97; }
 
 .footer {
-    color: var(--footer);
+    color: var(--text-muted);
     text-align: center;
     font-size: 12px;
     padding-top: 24px;
 }
 
 pre {
-    border: 2px solid var(--nav-border);
+    border: 2px solid var(--border);
     background: var(--bg);
-    color: var(--h1);
+    color: var(--text);
 }
 
 code {
     background: rgba(255,255,255,.1);
-    color: var(--h1);
+    color: var(--text);
 }
 
 .copy-btn {
     background: var(--nav-bg);
-    border: 1px solid var(--nav-border);
-    color: var(--desc);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
     opacity: 0;
 }
 
 .copy-btn:hover {
-    background: var(--h1);
+    background: var(--text);
     color: var(--bg);
 }
 
