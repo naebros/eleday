@@ -1,57 +1,37 @@
 @import url('../../res/global.css');
 
-:root {
-    --radius: 30px;
-    --radius-sm: 15px;
-}
-
-
 :root, [data-theme="dark"] {
-    color-scheme: dark; /* Сообщает браузеру использовать темные скроллбары */
-    
     --bg: #0f0f11;
     --surface: #18181b;
-    --border: #3f3f46;
-    --nav-bg: linear-gradient(145deg, #1f1f23, #161618);
-    
     --text: #f4f4f5;
-    --text-dim: #a1a1aa;
     --text-muted: #71717a;
-    
-    --accent: #555555;       
-    --accent-hover: #434343;
+    --text-dim: #a1a1aa;
+    --accent:rgb(85, 85, 85);
+    --accent-hover: rgb(67, 67, 67);
     --code-bg: #27272a;
-    
+    --border: #3f3f46;
     --error-bg: #450a0a;
     --error-border: #991b1b;
     --error-text: #fca5a5;
     --warn-bg: #422006;
     --warn-border: #a16207;
+    --radius: 8px;
+    --radius-sm: 6px;
+    --nav-bg: linear-gradient(145deg, #1f1f23, #161618);
 }
 
 [data-theme="light"] {
-    color-scheme: light;
-    
     --bg: #f8f9fa;
     --surface: #ffffff;
-    --border: #e1e4e8;
-    --nav-bg: linear-gradient(145deg, #ffffff, #f9f9f9);
-    
     --text: #1a1a1b;
-    --text-dim: #444951;
     --text-muted: #6c757d;
-    
+    --text-dim: #444951;
     --accent: #000000;
     --accent-hover: #292929;
     --code-bg: #f1f2f3;
-    
-    --error-bg: #fef2f2;
-    --error-border: #f87171;
-    --error-text: #991b1b;
-    --warn-bg: #fefce8;
-    --warn-border: #eab308;
+    --border: #e1e4e8;
+    --nav-bg: linear-gradient(145deg, #ffffff, #f9f9f9);
 }
-
 
 body {
     background: var(--bg);
@@ -73,11 +53,10 @@ a:hover {
     text-decoration: underline;
 }
 
-/* Добавлена поддержка safe-area для десктопов и планшетов (челки/вырезы) */
 .article {
     max-width: 800px;
     margin: 0 auto;
-    padding: 40px max(20px, env(safe-area-inset-right)) 80px max(20px, env(safe-area-inset-left));
+    padding: 40px 20px 80px;
     min-height: 100vh;
 }
 
@@ -185,7 +164,7 @@ pre code {
     font-family: 'Inter', sans-serif;
     color: var(--text-muted);
     cursor: pointer;
-    transition: scale 0.2s ease, background-color 0.2s ease;
+    transition: scale 0.2s ease;
 }
 
 .copy-btn:hover {
@@ -348,7 +327,7 @@ tr:last-child td {
     font-size: 0.85rem;
     font-weight: 500;
     cursor: pointer;
-    transition: border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
+    transition: border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .example-btn:hover {
@@ -359,7 +338,6 @@ tr:last-child td {
 
 .example-btn:active {
     transform: scale(0.97);
-    background: rgba(255, 255, 255, 0.05); /* Легкий фидбек при тапе для мобильных */
 }
 
 .request-loading {
@@ -510,25 +488,13 @@ tr:last-child td {
     font-size: 0.95rem;
 }
 
-
-/* =========================================
-   МЕДИА-ЗАПРОСЫ ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ
-   ========================================= */
-
-/* Основной мобильный вид (Планшеты и телефоны) */
 @media (max-width: 640px) {
     .article {
-        /* Учитываем safe-areas для телефонов с "челками" */
-        padding: 24px max(16px, env(safe-area-inset-right)) 60px max(16px, env(safe-area-inset-left));
+        padding: 24px 16px 60px;
     }
 
     .article-header h1 {
-        font-size: 1.6rem;
-        letter-spacing: -0.02em;
-    }
-
-    .article-intro {
-        font-size: 1rem;
+        font-size: 1.75rem;
     }
 
     .article-section h2 {
@@ -544,78 +510,11 @@ tr:last-child td {
         border-right: none;
     }
 
-    /* Предотвращаем автоматический zoom в iOS Safari */
-    .form-group input[type="text"],
-    .form-group textarea,
-    .form-group select {
-        font-size: 16px;
-        padding: 12px;
+    th, td {
+        padding: 8px 10px;
     }
 
-    /* Увеличиваем область нажатия кнопок (Touch targets) */
-    .btn-send {
-        width: 100%;
-        padding: 14px 20px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .example-btn {
-        padding: 10px 16px;
-    }
-
-    /* Растягиваем блоки кода от края до края */
-    pre {
-        padding: 12px;
-        margin: 12px -16px;
-        border-radius: 0;
-        border-left: none;
-        border-right: none;
-    }
-
-    pre code {
-        font-size: 0.8rem;
-    }
-}
-
-/* Перестройка таблиц (Телефоны) */
-@media (max-width: 500px) {
-    table, thead, tbody, th, td, tr {
-        display: block;
-        width: 100%;
-    }
-    
     th {
-        border-bottom: none;
-        padding-bottom: 4px;
-        color: var(--accent); /* Визуально выделяем заголовок */
-        width: auto;
-    }
-    
-    td {
-        padding-top: 0;
-        padding-bottom: 16px;
-    }
-}
-
-/* Горизонтальный скролл для кнопок-примеров (Узкие телефоны) */
-@media (max-width: 480px) {
-    .examples-grid {
-        display: flex;
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        padding-bottom: 8px; /* Место под тень/скроллбар */
-        scrollbar-width: none; /* Скрываем скроллбар в Firefox */
-        -webkit-overflow-scrolling: touch; /* Плавный скролл в iOS */
-    }
-    
-    .examples-grid::-webkit-scrollbar {
-        display: none; /* Скрываем скроллбар в Chrome/Safari */
-    }
-
-    .example-btn {
-        flex: 0 0 auto; /* Запрещаем кнопкам сжиматься */
-        white-space: nowrap;
+        width: 40%;
     }
 }
