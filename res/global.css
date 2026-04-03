@@ -135,8 +135,3 @@ pre:hover .copy-btn {
 .copy-btn:active {
     transform: scale(0.97);
 }
-@media (max-width: 768px) {
-    .copy-btn {
-        opacity: 1;
-    }
-}
