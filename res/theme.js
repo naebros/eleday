@@ -1,7 +1,4 @@
 function initTheme() {
-    const savedTheme = localStorage.getItem('theme');
-    document.documentElement.dataset.theme = savedTheme ?? (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-
     const themeBtn = document.getElementById('theme-btn');
     if (themeBtn) {
         themeBtn.addEventListener('click', () => {

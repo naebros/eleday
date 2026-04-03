@@ -1,36 +1,11 @@
 @import url('../../res/global.css');
 
 :root, [data-theme="dark"] {
-    --bg: #0f0f11;
-    --surface: #18181b;
-    --text: #f4f4f5;
-    --text-muted: #71717a;
-    --text-dim: #a1a1aa;
-    --accent:rgb(85, 85, 85);
-    --accent-hover: rgb(67, 67, 67);
-    --code-bg: #27272a;
-    --border: #3f3f46;
     --error-bg: #450a0a;
     --error-border: #991b1b;
     --error-text: #fca5a5;
     --warn-bg: #422006;
     --warn-border: #a16207;
-    --radius: 8px;
-    --radius-sm: 6px;
-    --nav-bg: linear-gradient(145deg, #1f1f23, #161618);
-}
-
-[data-theme="light"] {
-    --bg: #f8f9fa;
-    --surface: #ffffff;
-    --text: #1a1a1b;
-    --text-muted: #6c757d;
-    --text-dim: #444951;
-    --accent: #000000;
-    --accent-hover: #292929;
-    --code-bg: #f1f2f3;
-    --border: #e1e4e8;
-    --nav-bg: linear-gradient(145deg, #ffffff, #f9f9f9);
 }
 
 body {
@@ -119,7 +94,7 @@ a:hover {
 }
 
 .article-section ul li::before {
-    content: '•';
+    content: '\2022';
     position: absolute;
     left: 4px;
     color: var(--accent);
@@ -345,7 +320,7 @@ tr:last-child td {
     align-items: center;
     gap: 12px;
     padding: 16px;
-    background: #18181a;
+    background: var(--surface);
     border-radius: var(--radius-sm);
     margin-top: 16px;
     color: var(--text-dim);
@@ -393,7 +368,7 @@ tr:last-child td {
     display: inline-block;
     padding: 4px 10px;
     border-radius: 4px;
-    background: #18181a;
+    background: var(--surface);
     border: 1px solid var(--border);
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.9rem;
