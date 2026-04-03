@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="icon" href="res/logo.svg">
@@ -29,11 +29,11 @@
         <div class="topbar-right">
             <button class="btn" id="preview-btn">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
-                Превью
+                <span class="btn-label">Превью</span>
             </button>
             <button class="btn btn-primary" id="download-btn">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                Скачать HTML
+                <span class="btn-label">Скачать HTML</span>
             </button>
             <button id="theme-btn" aria-label="Переключить тему">
                 <svg class="icon-light" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
@@ -42,6 +42,7 @@
         </div>
     </header>
 
+    <!-- Desktop sidebar (hidden on mobile via CSS) -->
     <aside class="sidebar">
         <div class="sidebar-section">
             <div class="sidebar-section-title">Мета</div>
@@ -86,6 +87,23 @@
         </div>
     </aside>
 
+    <!-- Mobile meta accordion (hidden on desktop via CSS) -->
+    <button class="mobile-meta-toggle" id="mobile-meta-toggle">
+        Мета-данные
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="mobile-meta-panel" id="mobile-meta-panel">
+        <div class="meta-field">
+            <label class="meta-label">Описание (вступление)</label>
+            <textarea class="meta-input" id="meta-intro-mobile" rows="2" placeholder="Краткое описание статьи..."></textarea>
+        </div>
+        <div class="meta-field">
+            <label class="meta-label">Файл (slug)</label>
+            <input class="meta-input" id="meta-slug-mobile" type="text" placeholder="http" autocomplete="off">
+            <span style="font-size:11px;color:var(--text-muted);margin-top:3px">post/<span id="slug-preview-mobile">http</span>.html</span>
+        </div>
+    </div>
+
     <main class="canvas-wrap" id="canvas-wrap">
         <div class="canvas" id="canvas">
             <div class="article-preview-header" id="preview-header">
@@ -95,17 +113,45 @@
             <div id="blocks-container"></div>
             <div class="empty-state" id="empty-state">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
-                <span>Добавь блоки из панели слева</span>
+                <span id="empty-hint">Добавь блоки из панели слева</span>
             </div>
         </div>
     </main>
+
+    <!-- Mobile bottom bar with block palette (hidden on desktop via CSS) -->
+    <nav class="bottom-bar" id="bottom-bar">
+        <button class="bottom-bar-item" data-type="text">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="15" y2="18"/></svg>
+            Текст
+        </button>
+        <button class="bottom-bar-item" data-type="h2">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h8M4 6v12M12 6v12M17 12a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v.5c0 .3-.1.6-.3.8L17 18h4"/></svg>
+            H2
+        </button>
+        <button class="bottom-bar-item" data-type="h3">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h8M4 6v12M12 6v12M17.5 10.5a2 2 0 0 1 2-1.5h0a2 2 0 0 1 2 2v.5c0 .3-.1.6-.3.8L17.5 15h4M17.5 15v1a2 2 0 0 0 4 0"/></svg>
+            H3
+        </button>
+        <button class="bottom-bar-item" data-type="code">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            Код
+        </button>
+        <button class="bottom-bar-item" data-type="image">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+            Фото
+        </button>
+        <button class="bottom-bar-item" data-type="table">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg>
+            Таблица
+        </button>
+    </nav>
 </div>
 
 
 <div class="toast" id="toast"></div>
 
 <div id="preview-modal" style="display:none;position:fixed;inset:0;z-index:200;background:var(--bg);overflow-y:auto;">
-    <div style="max-width:800px;margin:0 auto;padding:40px 24px 80px;">
+    <div style="max-width:800px;margin:0 auto;padding:40px 16px 80px;">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:32px;padding-bottom:20px;border-bottom:1px solid var(--border);">
             <span style="font-size:13px;color:var(--text-muted)">Превью статьи</span>
             <button class="btn" id="close-preview-btn">Закрыть</button>
@@ -131,25 +177,58 @@ let dragSrcIdx = null;
 const container = document.getElementById('blocks-container');
 const emptyState = document.getElementById('empty-state');
 const titleInput = document.getElementById('article-title-input');
+const previewTitle = document.getElementById('preview-title');
+const previewIntro = document.getElementById('preview-intro');
+
+// ─── Meta — sync desktop & mobile fields ───
 const metaIntro = document.getElementById('meta-intro');
 const metaSlug = document.getElementById('meta-slug');
 const slugPreview = document.getElementById('slug-preview');
-const previewTitle = document.getElementById('preview-title');
-const previewIntro = document.getElementById('preview-intro');
+
+const metaIntroMobile = document.getElementById('meta-intro-mobile');
+const metaSlugMobile = document.getElementById('meta-slug-mobile');
+const slugPreviewMobile = document.getElementById('slug-preview-mobile');
+
+function getIntroValue() {
+    return (window.innerWidth <= 700 ? metaIntroMobile : metaIntro).value;
+}
+function getSlugValue() {
+    return (window.innerWidth <= 700 ? metaSlugMobile : metaSlug).value;
+}
+
+function syncIntro(source) {
+    const v = source.value;
+    if (source !== metaIntro) metaIntro.value = v;
+    if (source !== metaIntroMobile) metaIntroMobile.value = v;
+    previewIntro.textContent = v;
+    previewIntro.style.display = v ? '' : 'none';
+}
+
+function syncSlug(source) {
+    let v = source.value.trim().replace(/[^a-z0-9_-]/gi, '-').toLowerCase() || 'article';
+    if (source !== metaSlug) metaSlug.value = source.value;
+    if (source !== metaSlugMobile) metaSlugMobile.value = source.value;
+    slugPreview.textContent = v;
+    slugPreviewMobile.textContent = v;
+}
+
+metaIntro.addEventListener('input', () => syncIntro(metaIntro));
+metaIntroMobile.addEventListener('input', () => syncIntro(metaIntroMobile));
+metaSlug.addEventListener('input', () => syncSlug(metaSlug));
+metaSlugMobile.addEventListener('input', () => syncSlug(metaSlugMobile));
 
 // ─── Live preview header ───
 titleInput.addEventListener('input', () => {
     previewTitle.textContent = titleInput.value || 'Название статьи';
 });
 
-metaIntro.addEventListener('input', () => {
-    previewIntro.textContent = metaIntro.value;
-    previewIntro.style.display = metaIntro.value ? '' : 'none';
-});
+// ─── Mobile meta accordion ───
+const mobileMetaToggle = document.getElementById('mobile-meta-toggle');
+const mobileMetaPanel = document.getElementById('mobile-meta-panel');
 
-metaSlug.addEventListener('input', () => {
-    let v = metaSlug.value.trim().replace(/[^a-z0-9_-]/gi, '-').toLowerCase() || 'article';
-    slugPreview.textContent = v;
+mobileMetaToggle.addEventListener('click', () => {
+    mobileMetaToggle.classList.toggle('open');
+    mobileMetaPanel.classList.toggle('open');
 });
 
 // ─── Block factory ───
@@ -167,7 +246,6 @@ function getDefaultData(type) {
 // ─── Render ───
 function render() {
     emptyState.style.display = blocks.length ? 'none' : '';
-    // remove old block els
     [...container.children].forEach(el => el.remove());
 
     blocks.forEach((block, idx) => {
@@ -373,25 +451,31 @@ function buildTableEditor(block) {
     return wrap;
 }
 
-// ─── Add block from palette ───
+// ─── Add block (works for both desktop palette & mobile bottom bar) ───
+function addBlock(type) {
+    blocks.push(createBlock(type));
+    render();
+    setTimeout(() => {
+        const cw = document.getElementById('canvas-wrap');
+        cw.scrollTo({ top: cw.scrollHeight, behavior: 'smooth' });
+    }, 50);
+}
+
+// Desktop sidebar palette
 document.querySelectorAll('.palette-item').forEach(btn => {
-    btn.addEventListener('click', () => {
-        const type = btn.dataset.type;
-        blocks.push(createBlock(type));
-        render();
-        // scroll to bottom
-        setTimeout(() => {
-            const cw = document.getElementById('canvas-wrap');
-            cw.scrollTo({ top: cw.scrollHeight, behavior: 'smooth' });
-        }, 50);
-    });
+    btn.addEventListener('click', () => addBlock(btn.dataset.type));
+});
+
+// Mobile bottom bar
+document.querySelectorAll('.bottom-bar-item').forEach(btn => {
+    btn.addEventListener('click', () => addBlock(btn.dataset.type));
 });
 
 // ─── Generate HTML ───
 function generateHTML() {
     const title = titleInput.value.trim() || 'Статья';
-    const intro = metaIntro.value.trim();
-    let slug = (metaSlug.value.trim().replace(/[^a-z0-9_-]/gi, '-').toLowerCase()) || 'article';
+    const intro = getIntroValue().trim();
+    let slug = (getSlugValue().trim().replace(/[^a-z0-9_-]/gi, '-').toLowerCase()) || 'article';
     const filename = slug + '.html';
 
     let sectionsHTML = '';
@@ -490,7 +574,7 @@ document.getElementById('download-btn').addEventListener('click', () => {
     if (!titleInput.value.trim()) { showToast('Введи название статьи'); return; }
     if (blocks.length === 0) { showToast('Добавь хотя бы один блок'); return; }
 
-    let slug = (metaSlug.value.trim().replace(/[^a-z0-9_-]/gi, '-').toLowerCase()) || 'article';
+    let slug = (getSlugValue().trim().replace(/[^a-z0-9_-]/gi, '-').toLowerCase()) || 'article';
     const filename = slug + '.html';
     const html = generateHTML();
     const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
@@ -516,7 +600,7 @@ document.getElementById('close-preview-btn').addEventListener('click', () => {
 
 function generatePreviewHTML() {
     const title = titleInput.value.trim() || 'Название статьи';
-    const intro = metaIntro.value.trim();
+    const intro = getIntroValue().trim();
 
     let html = `<div class="article-preview-header" style="border-bottom:1px solid var(--border);padding-bottom:24px;margin-bottom:32px;">`;
     html += `<h1 style="font-size:2rem;font-weight:700;margin-bottom:12px;">${esc(title)}</h1>`;
@@ -560,6 +644,14 @@ function generatePreviewHTML() {
 }
 
 render();
+
+// ─── Responsive hint text ───
+function updateHint() {
+    const hint = document.getElementById('empty-hint');
+    if (hint) hint.textContent = window.innerWidth <= 700 ? 'Нажми на тип блока снизу' : 'Добавь блоки из панели слева';
+}
+updateHint();
+window.addEventListener('resize', updateHint);
 </script>
 </body>
 </html>
