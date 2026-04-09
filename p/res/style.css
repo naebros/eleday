@@ -152,7 +152,7 @@ pre code {
     border-radius: var(--radius-sm);
     padding: 4px 8px;
     font-size: 0.75rem;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Geist', sans-serif;
     color: var(--text-muted);
     cursor: pointer;
     transition: scale 0.2s ease;
