@@ -113,27 +113,3 @@ pre code {
     font-size: 0.875rem;
     line-height: 1.7;
 }
-
-/* ─── Copy button ─── */
-
-.copy-btn {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    border-radius: 4px;
-    padding: 4px 8px;
-    font-size: 0.75rem;
-    cursor: pointer;
-    opacity: 0;
-    transform: scale(0.80);
-    transition: opacity 0.2s ease, scale 0.2s ease;
-}
-
-pre:hover .copy-btn {
-    opacity: 1;
-    transform: scale(0.1);
-}
-
-.copy-btn:active {
-    transform: scale(0.96);
-}
