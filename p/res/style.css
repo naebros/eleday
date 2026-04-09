@@ -155,16 +155,18 @@ pre code {
     font-family: 'Geist', sans-serif;
     color: var(--text-muted);
     cursor: pointer;
-    transition: scale 0.2s ease;
+    opacity: 0.5;
+    transition: scale 0.2s ease, opacity 0.2s ease;
 }
 
 .copy-btn:hover {
     background: var(--code-bg);
     color: var(--text);
+    opacity: 1;
 }
 
 .copy-btn:active {
-    transform: scale(0.97);
+    transform: scale(0.95);
 }
 
 table {
