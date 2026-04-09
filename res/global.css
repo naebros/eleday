@@ -130,6 +130,7 @@ pre code {
 
 pre:hover .copy-btn {
     opacity: 1;
+    transform: scale(0.99);
 }
 
 .copy-btn:active {
