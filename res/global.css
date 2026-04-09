@@ -125,14 +125,15 @@ pre code {
     font-size: 0.75rem;
     cursor: pointer;
     opacity: 0;
+    transform: scale(0.80);
     transition: opacity 0.2s ease, scale 0.2s ease;
 }
 
 pre:hover .copy-btn {
     opacity: 1;
-    transform: scale(0.99);
+    transform: scale(0.1);
 }
 
 .copy-btn:active {
-    transform: scale(0.97);
+    transform: scale(0.96);
 }
