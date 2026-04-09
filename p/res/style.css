@@ -155,8 +155,8 @@ pre code {
     font-family: 'Geist', sans-serif;
     color: var(--text-muted);
     cursor: pointer;
-    opacity: 0.5;
-    transition: scale 0.2s ease, opacity 0.2s ease;
+    opacity: 0.3;
+    transition: scale 0.4s ease, opacity 0.4s ease;
 }
 
 .copy-btn:hover {
